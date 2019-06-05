@@ -356,17 +356,29 @@ void UART_TXBuffer_PutByte(USART_data_t * usart_data, uint8_t data)
 	}
 	//return TXBuffer_FreeSpace;  //Nothing to be return
 }
- USART_data_t USART_datac0;
 
-void USART_ENABLE_C(){
-	PORTC.DIRSET   = PIN3_bm;
-	PORTC.DIRCLR   = PIN2_bm;
-	USART_InterruptDriver_Initialize(&USART_datac0, &USARTC0, USART_DREINTLVL_LO_gc);
-	USART_Format_Set(USART_datac0.usart, USART_CHSIZE_8BIT_gc,
+void USART0_INIT(PORT_t * port,USART_data_t USART_data, USART_t usart )
+{
+	port->DIRSET   = PIN3_bm;
+	port->DIRCLR   = PIN2_bm;
+	USART_InterruptDriver_Initialize(&USART_data, &usart , USART_DREINTLVL_LO_gc);
+	USART_Format_Set(USART_data.usart, USART_CHSIZE_8BIT_gc,
 	USART_PMODE_DISABLED_gc, false);
-	USART_RxdInterruptLevel_Set(USART_datac0.usart, USART_RXCINTLVL_LO_gc);
-	USART_Baudrate_Set(&USARTC0, 12 , 0);
-	USART_Rx_Enable(USART_datac0.usart);
-	USART_Tx_Enable(USART_datac0.usart);
-	PMIC.CTRL |= PMIC_LOLVLEX_bm;
-sei();}
+	USART_RxdInterruptLevel_Set(USART_data.usart, USART_RXCINTLVL_LO_gc);
+	USART_Baudrate_Set(&usart, 12 , 0);
+	USART_Rx_Enable(USART_data.usart);
+	USART_Tx_Enable(USART_data.usart);
+}
+
+void USART1_INIT(PORT_t * port,USART_data_t USART_data, USART_t usart )
+{
+	port->DIRSET   = PIN7_bm;
+	port->DIRCLR   = PIN6_bm;
+	USART_InterruptDriver_Initialize(&USART_data, &usart , USART_DREINTLVL_LO_gc);
+	USART_Format_Set(USART_data.usart, USART_CHSIZE_8BIT_gc,
+	USART_PMODE_DISABLED_gc, false);
+	USART_RxdInterruptLevel_Set(USART_data.usart, USART_RXCINTLVL_LO_gc);
+	USART_Baudrate_Set(&usart, 12 , 0);
+	USART_Rx_Enable(USART_data.usart);
+	USART_Tx_Enable(USART_data.usart);
+}

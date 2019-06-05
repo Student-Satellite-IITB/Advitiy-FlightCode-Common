@@ -309,6 +309,7 @@ void USART_DataRegEmpty(USART_data_t * usart_data);
 /* Functions for polled driver. */
 void USART_NineBits_PutChar(USART_t * usart, uint16_t data);
 uint16_t USART_NineBits_GetChar(USART_t * usart);
-
-void USART_ENABLE_C();
+//void USART_ENABLE_C();
+void USART0_INIT(PORT_t * port,USART_data_t USART_data, USART_t usart );
+void USART1_INIT(PORT_t * port,USART_data_t USART_data, USART_t usart );
 #endif
